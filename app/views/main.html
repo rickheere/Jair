@@ -1,0 +1,39 @@
+<form class="form-inline" role="form" novalidate ng-submit="processForm()">
+    <div class="row">
+        <div class="form-group">
+            <label class="sr-only" for="item-name">Your item</label>
+            <input
+                class="form-control"
+                ng-model="name"
+                id="item-name"
+                name="item-name"
+                placeholder="Your item" />
+        </div>
+        <div class="form-group">
+            <label class="sr-only" for="item-price">Price</label>
+            <input
+                class="form-control"
+                ng-model="price"
+                id="item-price"
+                name="item-price"
+                placeholder="Price" />
+        </div>
+    </div>
+
+    <div class="row">
+        <button
+            class="btn btn-primary pull-right"
+            type="submit">Save</button>
+    </div>
+
+    <div class="status">
+        {{ status }}
+    </div>
+</form>
+
+<div ng-repeat="item in items">
+    <div class="clearfix">
+        <div class="pull-left">{{ item.key }}</div>
+        <div class="pull-right">{{ item.value }}</div>
+    </div>
+</div>
