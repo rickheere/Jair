@@ -351,9 +351,38 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
+    },
+
+    mkcouchdb: {
+        expenses: {
+            db: 'http://localhost:5984/expenses',
+            options: {
+                okay_if_exists: true
+            }
+        }
+    },
+
+    rmcouchdb: {
+        expenses: {
+            db: 'http://localhost:5984/expenses',
+            options: {
+                okay_if_missing: true
+            }
+        }
+    },
+
+    couchapp: {
+        expenses: {
+            db: 'http://localhost:5984/expenses',
+            app: './couchdb/views.js'
+        }
     }
+
   });
 
+  grunt.loadNpmTasks(
+    'grunt-couchapp'
+  );
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
@@ -361,6 +390,8 @@ module.exports = function (grunt) {
     }
 
     grunt.task.run([
+      'mkcouchdb',
+      'couchapp',
       'clean:server',
       'wiredep',
       'concurrent:server',
@@ -405,4 +436,6 @@ module.exports = function (grunt) {
     'test',
     'build'
   ]);
+
+
 };
